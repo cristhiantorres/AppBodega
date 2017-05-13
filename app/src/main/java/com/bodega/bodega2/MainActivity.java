@@ -55,21 +55,12 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Cargando ...");
         progressDialog.setCancelable(false);
         listView = (ListView) findViewById(R.id.listclientes);
-        arrayList = new ArrayList<String>();
 
-        adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_expandable_list_item_1,arrayList);
-
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new ItemList());
-
-        arrayList.clear();
         getClientesDetalles();
 
         btnver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrayList.clear();
                 getClientesDetalles();
             }
         });
@@ -82,14 +73,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-     class ItemList implements AdapterView.OnItemClickListener{
-         @Override
-         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-             String doc = String.valueOf(parent.getItemAtPosition(position));
-             getClienteShow(doc);
-         }
-     }
-
     private void getClientesDetalles(){
         progressDialog.show();
         Call<List<Cliente>> call = service.getClientes();
@@ -97,11 +80,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Cliente>> call, Response<List<Cliente>> response) {
                 List<Cliente> clientes = response.body();
-                for (int i = 0; i < clientes.size(); i++){
-                    String doc = clientes.get(i).getDoc();
-                    arrayList.add(i,doc);
-                    adapter.notifyDataSetChanged();
-                }
+                AdapterCliente adapter = new AdapterCliente(MainActivity.this,clientes);
+                listView.setAdapter(adapter);
                 progressDialog.hide();
             }
 
@@ -113,29 +93,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getClienteShow(String doc){
-        Call<Cliente> call = service.showClientes(doc);
-        call.enqueue(new Callback<Cliente>() {
-            @Override
-            public void onResponse(Call<Cliente> call, Response<Cliente> response) {
-                //Traemos todos los datos a la variable de tipo Cliente
-                Cliente cliente = response.body();
-                //Declaramos y cargamos las variables a utilizar
-                String nombre = cliente.getNombre();
-                String apellido = cliente.getApellido();
-                String doc = cliente.getDoc();
-                //Declaramos en Intent para poder llamar a PedidoActivity
-                Intent i = new Intent(MainActivity.this,PedidoActivity.class);
-                //Declaramos los parametros a pasar a PedidoActivity
-                i.putExtra("nombre",nombre);
-                i.putExtra("doc",doc);
-                i.putExtra("apellido",apellido);
-                startActivity(i);
-            }
-            @Override
-            public void onFailure(Call<Cliente> call, Throwable t) {
-                Log.e("onFailure: ", t.getMessage());
-            }
-        });
-    }
+//    private void getClienteShow(String doc){
+//        Call<Cliente> call = service.showClientes(doc);
+//        call.enqueue(new Callback<Cliente>() {
+//            @Override
+//            public void onResponse(Call<Cliente> call, Response<Cliente> response) {
+//                //Traemos todos los datos a la variable de tipo Cliente
+//                Cliente cliente = response.body();
+//                //Declaramos y cargamos las variables a utilizar
+//                String nombre = cliente.getNombre();
+//                String apellido = cliente.getApellido();
+//                String doc = cliente.getDoc();
+//                //Declaramos en Intent para poder llamar a PedidoActivity
+//                Intent i = new Intent(MainActivity.this,PedidoActivity.class);
+//                //Declaramos los parametros a pasar a PedidoActivity
+//                i.putExtra("nombre",nombre);
+//                i.putExtra("doc",doc);
+//                i.putExtra("apellido",apellido);
+//                startActivity(i);
+//            }
+//            @Override
+//            public void onFailure(Call<Cliente> call, Throwable t) {
+//                Log.e("onFailure: ", t.getMessage());
+//            }
+//        });
+//    }
 }
