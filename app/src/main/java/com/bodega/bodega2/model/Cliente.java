@@ -15,6 +15,7 @@ public class Cliente {
     private String doc;
     private String telefono;
     private String correo;
+    private String direccion;
 
     public int getId() {
         return id;
@@ -62,5 +63,23 @@ public class Cliente {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+
+    public Cliente(String nombre,String apellido, String doc, String telefono, String correo, String direccion){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.doc = doc;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.direccion = direccion;
     }
 }

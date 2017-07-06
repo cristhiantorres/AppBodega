@@ -6,7 +6,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -15,10 +20,13 @@ import retrofit2.http.Path;
 
 public interface ClienteService {
 
-    @GET("clientes?api_token=rZIvmjiRDXwba1Fn44Yp1NxdFgIdfk2136eIkDSzAd9rPofciVwpMAHus0Z7")
+    @GET("pedidos/clientes")
     Call<List<Cliente>> getClientes();
 
-    @GET("clientes/{doc}/show?api_token=rZIvmjiRDXwba1Fn44Yp1NxdFgIdfk2136eIkDSzAd9rPofciVwpMAHus0Z7")
+    @GET("api/clientes/{doc}/show?api_token=TYtm7VTWLLKTsDbnRBoIExU4dH9UX4r0HN2y7KvyCGC9HR4QweL2nRyDsPjN")
     Call<Cliente> showClientes(@Path("doc") String doc);
+
+    @POST("api/5370clientes?api_token=TYtm7VTWLLKTsDbnRBoIExU4dH9UX4r0HN2y7KvyCGC9HR4QweL2nRyDsPjN")
+    Call<List<Cliente>> store(@Body Cliente cliente);
 
 }

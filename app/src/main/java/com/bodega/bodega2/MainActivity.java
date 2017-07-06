@@ -36,11 +36,9 @@ public class MainActivity extends AppCompatActivity {
     Button btnsalir;
     ProgressDialog progressDialog;
     private ListView listView;
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> arrayList;
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://d3.pybox.com/bodegaapi/api/")
+            .baseUrl("https://laravel-fvn5.frb.io/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     ClienteService service = retrofit.create(ClienteService.class);
@@ -58,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
         getClientesDetalles();
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
         btnver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +76,58 @@ public class MainActivity extends AppCompatActivity {
                 System.exit(0);
             }
         });
+    }
+
+    private class AdapterCliente extends ArrayAdapter<Cliente>{
+        private List<Cliente> listClientes;
+
+        private MainActivity mainActivity;
+
+        public  AdapterCliente(Context context, List<Cliente> clientes){
+            super(context,R.layout.list_item,clientes);
+
+            listClientes = clientes;
+        }
+
+        public View getView(final int position, View convertView, ViewGroup parent){
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+
+            View item = inflater.inflate(R.layout.list_item,null);
+
+            TextView documento = (TextView) item.findViewById(R.id.text_doc_list);
+            TextView nombre = (TextView) item.findViewById(R.id.text_nombre_list);
+
+            documento.setText(listClientes.get(position).getDoc());
+            nombre.setText(listClientes.get(position).getNombre()+" "+listClientes.get(position).getApellido());
+
+
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String doc = listClientes.get(position).getDoc();
+                    Call<Cliente> call = service.showClientes(doc);
+
+                    call.enqueue(new Callback<Cliente>() {
+                        @Override
+                        public void onResponse(Call<Cliente> call, Response<Cliente> response) {
+                            Cliente cliente = response.body();
+
+                            String nombre = cliente.getNombre();
+                            String apellido = cliente.getApellido();
+                            String doc = cliente.getDoc();
+
+                            getClienteShow(doc);
+                        }
+
+                        @Override
+                        public void onFailure(Call<Cliente> call, Throwable t) {
+
+                        }
+                    });
+                }
+            });
+            return item;
+        }
     }
 
     private void getClientesDetalles(){
@@ -92,30 +149,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void getClienteShow(String doc){
+        Call<Cliente> call = service.showClientes(doc);
+        call.enqueue(new Callback<Cliente>() {
+            @Override
+            public void onResponse(Call<Cliente> call, Response<Cliente> response) {
+                //Traemos todos los datos a la variable de tipo Cliente
+                Cliente cliente = response.body();
+                //Declaramos y cargamos las variables a utilizar
+                String nombre = cliente.getNombre();
+                String apellido = cliente.getApellido();
+                String doc = cliente.getDoc();
+                //Declaramos en Intent para poder llamar a PedidoActivity
+                Intent i = new Intent(MainActivity.this,PedidoActivity.class);
+                //Declaramos los parametros a pasar a PedidoActivity
+                i.putExtra("nombre",nombre);
+                i.putExtra("doc",doc);
+                i.putExtra("apellido",apellido);
+                startActivity(i);
+            }
+            @Override
+            public void onFailure(Call<Cliente> call, Throwable t) {
+                Log.e("onFailure: ", t.getMessage());
+            }
+        });
+    }
 
-//    private void getClienteShow(String doc){
-//        Call<Cliente> call = service.showClientes(doc);
-//        call.enqueue(new Callback<Cliente>() {
-//            @Override
-//            public void onResponse(Call<Cliente> call, Response<Cliente> response) {
-//                //Traemos todos los datos a la variable de tipo Cliente
-//                Cliente cliente = response.body();
-//                //Declaramos y cargamos las variables a utilizar
-//                String nombre = cliente.getNombre();
-//                String apellido = cliente.getApellido();
-//                String doc = cliente.getDoc();
-//                //Declaramos en Intent para poder llamar a PedidoActivity
-//                Intent i = new Intent(MainActivity.this,PedidoActivity.class);
-//                //Declaramos los parametros a pasar a PedidoActivity
-//                i.putExtra("nombre",nombre);
-//                i.putExtra("doc",doc);
-//                i.putExtra("apellido",apellido);
-//                startActivity(i);
-//            }
-//            @Override
-//            public void onFailure(Call<Cliente> call, Throwable t) {
-//                Log.e("onFailure: ", t.getMessage());
-//            }
-//        });
-//    }
 }

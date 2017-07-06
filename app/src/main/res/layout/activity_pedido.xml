@@ -1,42 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.bodega.bodega2.PedidoActivity">
 
     <LinearLayout
-        android:layout_width="395dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="7dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
-                android:text="Realize su pedido"
-                android:textAlignment="center"
-                android:textSize="18dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
-        </LinearLayout>
+            android:text="Realize su pedido"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,75 +38,80 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
 
-            <TextView
-                android:id="@+id/textView4"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/textView4"
+                    android:layout_toRightOf="@+id/textView4"
+                    android:layout_weight="1"
+                    android:text="Nombre y Apellido"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
+
+                <TextView
+                    android:id="@+id/text_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/text_doc"
+                    android:layout_alignEnd="@+id/textView5"
+                    android:layout_alignLeft="@+id/textView5"
+                    android:layout_alignRight="@+id/textView5"
+                    android:layout_alignStart="@+id/textView5"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textAlignment="viewStart"
+                    android:textSize="10sp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView5"
-                android:layout_alignBottom="@+id/textView5"
-                android:layout_alignLeft="@+id/text_doc"
-                android:layout_alignStart="@+id/text_doc"
                 android:layout_weight="1"
-                android:text="Documento"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/textView4"
-                android:layout_toRightOf="@+id/textView4"
-                android:layout_weight="1"
-                android:text="Nombre y Apellido"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView5"
+                    android:layout_alignBottom="@+id/textView5"
+                    android:layout_alignLeft="@+id/text_doc"
+                    android:layout_alignStart="@+id/text_doc"
+                    android:layout_weight="1"
+                    android:text="Documento"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+                <TextView
+                    android:id="@+id/text_doc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView4"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textAlignment="viewStart"
+                    android:textSize="10sp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
 
-            <TextView
-                android:id="@+id/text_doc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView4"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="viewStart"
-                android:textSize="15dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
-
-            <TextView
-                android:id="@+id/text_nombre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/text_doc"
-                android:layout_alignEnd="@+id/textView5"
-                android:layout_alignLeft="@+id/textView5"
-                android:layout_alignRight="@+id/textView5"
-                android:layout_alignStart="@+id/textView5"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="viewStart"
-                android:textSize="15dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -123,33 +119,90 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_articulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Articulo"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtprecio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="precio"
+                android:textSize="10sp" />
+
+            <EditText
+                android:id="@+id/edcantidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Cantidad"
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/btnagregar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:text="Agregar"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/listproductos"
+                android:layout_width="match_parent"
+                android:layout_height="163dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
 
             <Button
                 android:id="@+id/btnsalir"
-                android:layout_width="90dp"
-                android:layout_height="38dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/text_doc"
                 android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/text_doc"
                 android:layout_weight="1"
+                android:elevation="0dp"
                 android:text="Atras"
-                android:textSize="10sp"
+                android:textSize="8sp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
 
             <Button
                 android:id="@+id/btn_pedido"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Realizar pedido"
-                android:textSize="10sp" />
+                android:textSize="8sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
+
